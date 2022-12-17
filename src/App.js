@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import MainPage from "./pages/MainPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import DetailPage from "./pages/DetailPage";
+import PriceDelivery from "./pages/PriceDelivery";
+import Navigation from "./components/Navigation";
+import ContactPage from "./pages/ContactPage";
+import { RecoilRoot } from "recoil";
+import Footer from "./pages/Footer";
+import AboutMySelf from "./pages/AboutMySelf";
+import Gallery from "./components/Gallery";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RecoilRoot>
+      <BrowserRouter>
+        <Navigation>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/price" element={<PriceDelivery />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/myself" element={<AboutMySelf />} />
+            <Route path="/cupcake" element={<Gallery />} />
+            <Route path="/macarons" element={<Gallery />} />
+            <Route path="/:item/:id" element={<DetailPage />} />
+          </Routes>
+          <Footer/>
+        </Navigation>
+      </BrowserRouter>
+    </RecoilRoot>
   );
 }
 
