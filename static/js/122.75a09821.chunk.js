@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkcupcakes=self.webpackChunkcupcakes||[]).push([[122],{9122:function(c,e,s){c.exports=s.p+"static/media/background.a434fbe956039f55457c.jpg"}}]);
