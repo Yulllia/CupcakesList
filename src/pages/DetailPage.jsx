@@ -1,6 +1,6 @@
 import { Spin } from "antd";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useImage } from "../components/Image";
 import { Image } from "antd";
 import DetailPhoto from "./DetailPhoto";
@@ -69,9 +69,9 @@ function DetailPage() {
             <span className="boldColor">Ціна: </span>
             {cupcakeItem.price}
           </p>
-          <a href={`/${item}`} className="btn btn-primary">
+          <Link to={`/${item}`} className="btn btn-primary" replace>
             Повернутися назад
-          </a>
+          </Link>
         </div>
       </div>
     </>
