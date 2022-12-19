@@ -2,8 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Cupcake from "../assets/cupcake.jpg";
 import Macarons from "../assets/macarons.jpg";
+import { useSetRecoilState } from "recoil";
+import { keyNavigate } from "../atom/store";
 
 function MainPage() {
+  const setTodoList = useSetRecoilState(keyNavigate);
   return (
     <div className="container-fluid align-self-center main-block">
       <h1 className="row d-flex  justify-content-center text-center">
@@ -14,7 +17,7 @@ function MainPage() {
         style={{ height: "282px" }}
       >
         <div className="col-lg-4 hover-focus cursor-pointer">
-          <Link to={`/cupcake`}>
+          <Link to={`/${"cupcake"}`} onClick={() => setTodoList("cupcake")}>
             <img
               src={Cupcake}
               style={{ height: "100%" }}
@@ -26,7 +29,7 @@ function MainPage() {
           </Link>
         </div>
         <div className="col-lg-4">
-          <Link to={`/macarons`}>
+          <Link to={`/${"macarons"}`} onClick={() => setTodoList("macarons")}>
             <img
               src={Macarons}
               style={{ height: "100%" }}

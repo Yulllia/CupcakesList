@@ -42,7 +42,7 @@ function Footer({ children }) {
             </a>
           </span>
         </p>
-        <Link className="linkContact" to={"/myself"} target="_self">
+        <Link className="linkContact" to={"/myself"} target="_self" onClick={() => setTodoList("myself")}>
           Про мене
         </Link>
       </div>

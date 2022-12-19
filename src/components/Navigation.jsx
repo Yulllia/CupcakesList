@@ -6,16 +6,26 @@ import { keyNavigate } from "../atom/store";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Button, Menu } from "antd";
 import useWindowDimensions from "./ResizeWindow";
+import { useSetRecoilState } from "recoil";
 
 const items = [
   {
     label: (
-      <Link style={{ textDecoration: "none" }} to={"/cupcake"}>
-        Галерея
+      <Link style={{ textDecoration: "none" }} to={`/${"cupcake"}`}>
+        Капкейки
       </Link>
     ),
-    key: "gallery",
+    key: "cupcake",
   },
+  {
+    label: (
+      <Link style={{ textDecoration: "none" }} to={`/${"macarons"}`}>
+        Макаруни
+      </Link>
+    ),
+    key: "macarons",
+  },
+
   {
     label: (
       <Link style={{ textDecoration: "none" }} to={"/price"}>
@@ -24,20 +34,13 @@ const items = [
     ),
     key: "price",
   },
-  {
-    label: (
-      <Link style={{ textDecoration: "none" }} to={"/contact"}>
-        Контакти
-      </Link>
-    ),
-    key: "contact",
-  },
 ];
 
 function Navigation({ children }) {
   const [current, setCurrent] = useRecoilState(keyNavigate);
   const [collapsed, setCollapsed] = useState(false);
   const { width } = useWindowDimensions();
+  const setTodoList = useSetRecoilState(keyNavigate);
 
   const onClick = (e) => {
     setCurrent(e.key);
@@ -52,22 +55,22 @@ function Navigation({ children }) {
             onClick={() => setCollapsed(!collapsed)}
             style={{
               marginBottom: '16px',
-              display: width <= 600 ? "block" : "none",
+              display: width <= 800 ? "block" : "none",
             }}
           >
             {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           </Button>
-          {(collapsed || width >= 600) && (
+          {(collapsed || width >= 800) && (
             <Menu
-              style={{ background: "none", borderBottom: "unset" }}
+              style={{ background: "none", borderBottom: "unset", width: width<=800 ? "400px" : "650px"}}
               onClick={onClick}
               selectedKeys={[current]}
-              mode={width <= 600 ? "inline" : "horizontal"}
+              mode={width <= 800 ? "inline" : "horizontal"}
               items={items}
             />
           )}
         </div>
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand" to="/"  onClick={() => setTodoList("gallery")}>
           <img
             className="img-fluid rounded"
             src={Logo}

@@ -20,8 +20,7 @@ function App() {
             <Route path="/price" element={<PriceDelivery />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/myself" element={<AboutMySelf />} />
-            <Route path="/cupcake" element={<Gallery />} />
-            <Route path="/macarons" element={<Gallery />} />
+            <Route path="/:item" element={<Gallery />} />
             <Route path="/:item/:id" element={<DetailPage />} />
           </Routes>
           <Footer/>
