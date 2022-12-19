@@ -2,20 +2,27 @@ import React, { useEffect, useState } from "react";
 import ListCupcakes1 from "../assets/chocolate.jpg";
 import Macarons from "../assets/macarons.jpg";
 import GalleryItem from "./GalleryItem";
-import { Carousel } from "antd";
+import { Carousel, Spin } from "antd";
 import { useLocation } from "react-router-dom";
 
 function Gallery() {
   const [cupcakeList, setCupcakeList] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { pathname } = useLocation();
   const itemChoose = pathname.substring(1);
 
   useEffect(() => {
+    setLoading(true);
     fetch(`${process.env.REACT_APP_API_URL}/${itemChoose}`)
       .then((res) => res.json())
       .then((data) => setCupcakeList(data))
       .catch((err) => console.log(err));
+    setLoading(false);
   }, [itemChoose]);
+
+  if(loading){
+    return <Spin/>
+  }
 
   const contentStyle = {
     color: "#fff",
@@ -26,7 +33,7 @@ function Gallery() {
   return (
     <div>
       <h2 className="d-flex justify-content-center">
-        Оберіть {itemChoose === "cupcake" ? "капкейки" : "макаруни"}  до душі
+        Оберіть {itemChoose === "cupcake" ? "капкейки" : "макаруни"} до душі
       </h2>
       <div className="container">
         <Carousel effect="fade" className="mt-5">
@@ -43,7 +50,9 @@ function Gallery() {
           })}
         </Carousel>
       </div>
-      <h4 className="mt-5 d-flex justify-content-center">Історія {itemChoose === "cupcake" ? "капкейків" : "макарун"}</h4>
+      <h4 className="mt-5 d-flex justify-content-center">
+        Історія {itemChoose === "cupcake" ? "капкейків" : "макарун"}
+      </h4>
       <div className="historyDessert container">
         {itemChoose === "cupcake" ? (
           <p className="textWidth">
