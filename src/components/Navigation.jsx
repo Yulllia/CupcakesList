@@ -1,12 +1,9 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import Logo from "../assets/purple-cupcakes.png";
-import { useRecoilState } from "recoil";
-import { keyNavigate } from "../atom/store";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Button, Menu } from "antd";
 import useWindowDimensions from "./ResizeWindow";
-import { useSetRecoilState } from "recoil";
 
 const items = [
   {
@@ -37,14 +34,14 @@ const items = [
 ];
 
 function Navigation({ children }) {
-  const [current, setCurrent] = useRecoilState(keyNavigate);
+  const [current, setCurrent] = useState("");
   const [collapsed, setCollapsed] = useState(false);
   const { width } = useWindowDimensions();
-  const setTodoList = useSetRecoilState(keyNavigate);
+  const { pathname } = useLocation();
 
-  const onClick = (e) => {
-    setCurrent(e.key);
-  };
+  useEffect(()=>{
+    setCurrent(pathname.split("/")[1]);
+  },[pathname])
 
   return (
     <>
@@ -63,14 +60,13 @@ function Navigation({ children }) {
           {(collapsed || width >= 800) && (
             <Menu
               style={{ background: "none", borderBottom: "unset", width: width<=800 ? "400px" : "650px"}}
-              onClick={onClick}
               selectedKeys={[current]}
               mode={width <= 800 ? "inline" : "horizontal"}
               items={items}
             />
           )}
         </div>
-        <Link className="navbar-brand" to="/"  onClick={() => setTodoList("gallery")}>
+        <Link className="navbar-brand" to="/">
           <img
             className="img-fluid rounded"
             src={Logo}

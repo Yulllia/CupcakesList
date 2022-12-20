@@ -1,11 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { keyNavigate } from "../atom/store";
 
 function PricePage() {
- const setTodoList = useSetRecoilState(keyNavigate);
-
   return (
     <div className="priceBlock container">
       <h2 className="mb-3">Замовлення, доставка і оплата</h2>
@@ -20,7 +16,7 @@ function PricePage() {
       <p>
         Ви можете зробити замовлення на сайті, написати у «Viber» або
         зателефонувати (див. розділ{" "}
-        <Link to={"/contact"} target="_self" onClick={()=>setTodoList("contact")}>
+        <Link to={"/contact"} target="_self">
           Контакти
         </Link>
         ). Ваш запит не залишиться без відповіді, але відповідь може бути дана

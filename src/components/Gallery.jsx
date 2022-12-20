@@ -20,8 +20,8 @@ function Gallery() {
     setLoading(false);
   }, [itemChoose]);
 
-  if(loading){
-    return <Spin/>
+  if (loading) {
+    return <Spin />;
   }
 
   const contentStyle = {
@@ -50,12 +50,12 @@ function Gallery() {
           })}
         </Carousel>
       </div>
-      <h4 className="mt-5 d-flex justify-content-center">
-        Історія {itemChoose === "cupcake" ? "капкейків" : "макарун"}
-      </h4>
-      <div className="historyDessert container">
+      <div className="historyDessert container mt-5">
         {itemChoose === "cupcake" ? (
-          <p className="textWidth">
+          <div className="textWidth">
+            <h4 className="d-flex justify-content-center">
+              Історія {itemChoose === "cupcake" ? "капкейків" : "макарун"}
+            </h4>
             Капкейки стали чи не найбільш культовим десертом XXI століття. При
             тому, що років їм чимало. Адже симпатичні маленькі тістечка без
             крема з'явилися ще у Римській імперії, хоча загальноєвропейську
@@ -75,9 +75,12 @@ function Gallery() {
             називали... цифровими, адже перші рецепти було легко запам'ятати
             завдяки цифрам: одна чашка масла, дві чашки цукру, три чашки
             борошна, чотири яйця, одна чашка молока і чайна ложка соди.
-          </p>
+          </div>
         ) : (
-          <p className="textWidth">
+          <div className="textWidth">
+            <h4 className="d-flex justify-content-center">
+              Історія {itemChoose === "cupcake" ? "капкейків" : "макарун"}
+            </h4>
             Сьогодні кожна людина знає, що таке макаруни. Але так було не
             завжди. Історія десерту йде корінням в далеке минуле, в часи Марії
             Медічі. Приїхавши до Франції, вона привезла з собою італійського
@@ -96,9 +99,8 @@ function Gallery() {
             структурою і чудовим смаком. А його форма забезпечує зручність.
             Різнобарвні печеньки зручно розміщуються в упаковці, з них виходять
             презентабельні подарунки, складаються вражаючі композиції.
-          </p>
+          </div>
         )}
-
         <p>
           <img
             className="rounded img-fluid"
