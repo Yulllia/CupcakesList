@@ -1,70 +1,52 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import Logo from "../assets/purple-cupcakes.png";
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { Button, Menu } from "antd";
 import useWindowDimensions from "./ResizeWindow";
-
-const items = [
-  {
-    label: (
-      <Link style={{ textDecoration: "none" }} to={`/${"cupcake"}`}>
-        Капкейки
-      </Link>
-    ),
-    key: "cupcake",
-  },
-  {
-    label: (
-      <Link style={{ textDecoration: "none" }} to={`/${"macarons"}`}>
-        Макаруни
-      </Link>
-    ),
-    key: "macarons",
-  },
-
-  {
-    label: (
-      <Link style={{ textDecoration: "none" }} to={"/price"}>
-        Доставка і оплата
-      </Link>
-    ),
-    key: "price",
-  },
-];
+import Hamburger from "hamburger-react";
 
 function Navigation({ children }) {
-  const [current, setCurrent] = useState("");
-  const [collapsed, setCollapsed] = useState(false);
+  const [isOpen, setOpen] = useState(false);
   const { width } = useWindowDimensions();
-  const { pathname } = useLocation();
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef);
 
-  useEffect(()=>{
-    setCurrent(pathname.split("/")[1]);
-  },[pathname])
+
+  function useOutsideAlerter(ref) {
+    useEffect(() => {
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setOpen(false);
+        }
+      }
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
 
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-5">
-        <div className="menu-wrapper">
-          <Button
-            type="default"
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              marginBottom: '16px',
-              display: width <= 800 ? "block" : "none",
-            }}
-          >
-            {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-          </Button>
-          {(collapsed || width >= 800) && (
-            <Menu
-              style={{ background: "none", borderBottom: "unset", width: width<=800 ? "400px" : "650px"}}
-              selectedKeys={[current]}
-              mode={width <= 800 ? "inline" : "horizontal"}
-              items={items}
-            />
-          )}
+        <div className="menu-wrapper" ref={wrapperRef} >
+        {(isOpen || width > 785 ) && (
+          <ul className="menu-list">
+            <Link onClick={()=>setOpen(false)} style={{ textDecoration: "none" }} to={`/${"cupcake"}`}>
+              Капкейки
+            </Link>
+            <Link onClick={()=>setOpen(false)} style={{ textDecoration: "none" }} to={`/${"macarons"}`}>
+              Макаруни
+            </Link>
+            <Link onClick={()=>setOpen(false)} style={{ textDecoration: "none" }} to={"/price"}>
+              Доставка і оплата
+            </Link>
+          </ul>
+        )}
+        {width < 785 && (
+          <Hamburger toggled={isOpen} toggle={setOpen} color={isOpen ? "white" : "black"} />
+        )}
         </div>
         <Link className="navbar-brand" to="/">
           <img
