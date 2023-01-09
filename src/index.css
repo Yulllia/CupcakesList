@@ -105,6 +105,9 @@ a > svg {
 .menu-list > a {
   padding: 18px 10px;
 }
+.menu-wrapper {
+  z-index: 2;
+}
 .menu-wrapper > .hamburger-react {
   position: fixed !important;
   top: 10px;
