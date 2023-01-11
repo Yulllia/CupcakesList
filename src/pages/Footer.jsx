@@ -1,47 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "../assets/purple-cupcakes.png";
-import { AiFillFacebook } from "react-icons/ai";
+import { ReactComponent as Logo } from "../assets/icon-logo.svg";
 import { FiInstagram } from "react-icons/fi";
+import { MdPermContactCalendar } from "react-icons/md";
+import { BsPersonCircle } from "react-icons/bs";
+import { Tooltip } from "antd";
 
-function Footer({ children }) {
+function Footer() {
   return (
     <div className="footer">
-      {children}
-      <Link className="navbar-brand" to="/">
-        <img
-          className="img-fluid rounded"
-          style={{ backgroundColor: "white" }}
-          src={Logo}
-          width={200}
-          height={100}
-          alt="Logo"
-        />
-      </Link>
-      <div className="footerText">
-        <p>
-          {" "}
-          <Link
-            className="linkContact"
-            to={"/contact"}
-            target="_self"
-          >
-            Контакти
-          </Link>
-          <span>
-            {" "}
-            <a href="https://www.instagram.com/yuliia_cupcakes">
-              <FiInstagram />
-            </a>
-            <a href="https://www.facebook.com/yuliashyshka21">
-              <AiFillFacebook />
-            </a>
-          </span>
-        </p>
-        <Link className="linkContact" to={"/myself"} target="_self">
-          Про мене
+      <Tooltip title="Головна сторінка" color="purple">
+        <Link to="/">
+          <Logo className="logo-color"/>
         </Link>
-      </div>
+      </Tooltip>
+      <Tooltip title="Про мене" color="purple">
+        <Link className="linkContact" to={"/contact"} target="_self">
+          <MdPermContactCalendar width={40} height={40} />
+        </Link>
+      </Tooltip>
+      <Tooltip title="Інстаграм" color="purple">
+        <a href={"https://www.instagram.com/yuliia_cupcakes"}>
+          <FiInstagram />
+        </a>
+      </Tooltip>
+      <Tooltip title="Контакти" color="purple">
+        <Link className="linkContact" to={"/myself"} target="_self">
+          <BsPersonCircle />
+        </Link>
+      </Tooltip>
     </div>
   );
 }
